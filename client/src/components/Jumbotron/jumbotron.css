@@ -1,0 +1,22 @@
+.size {
+    height: 165px;
+    background-color: black;
+    border-bottom: 4px;
+    border-bottom-style: solid;
+    border-color: orange
+}
+.header {
+    font-family: "Press Start 2P";
+    margin-top: -25px;
+    font-size: 40px;
+    color: orange;
+    text-align: center;
+    letter-spacing: 15px
+}
+.inst {
+    font-family: 'Press Start 2P';
+    text-align: center;
+    color: orange;
+    letter-spacing: 5px;
+    font-size: 12px
+}
