@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Modal, Footer } from "react-materialize"
+import { Link } from 'react-router-dom'
 import { auth } from "../../firebase"
 // import Question from "../Questions"
 
@@ -166,7 +167,7 @@ class StartPage extends Component {
                         </div>
                     </Modal><br />
                 </div>
-                <a className="waves-effect waves-light btn-large" href="/game" onClick={() => this.state.difficulty} style={button}>Start Game</a>
+                <Link className="waves-effect waves-light btn-large" href={process.env.PUBLIC_URL + "/game"} onClick={() => this.state.difficulty} style={button}>Start Game</Link>
                 <div>
                     <Footer style={footerStyle}></Footer>
                 </div>
