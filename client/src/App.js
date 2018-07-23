@@ -5,7 +5,7 @@ import { firebase } from "./firebase";
 import Question from './components/Questions';
 import StartPage from './components/StartPage';
 import ResultsPage from './components/ResultsPage'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -41,9 +41,11 @@ class App extends Component {
         {/* <NavBar username={this.state.trueUser}></NavBar> */}
         <Jumbotron/>
           <div>
+            <Switch>
             <Route exact path="/" component={StartPage} />
-            <Route exact path={process.env.PUBLIC_URL + "/game"} component={Question} />
+            <Route path={process.env.PUBLIC_URL + "/game"} component={Question} />
             <Route exact path="/endGame" component={ResultsPage} />
+            </Switch>
           </div>
       </div>
     );

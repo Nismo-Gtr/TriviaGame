@@ -1,6 +1,7 @@
 import React from "react"
 // import './ResultsPage.css'
 import { Footer }    from 'react-materialize'
+import { Link } from 'react-router-dom'
 import Delay from 'react-delay'
 
 const style = {
@@ -73,7 +74,7 @@ const ResultsPage = (props) => (
                     </ul>
                 </div>
             </div>
-            <a className="waves-effect waves-light btn-large" href="/" style={button}>Play Again!</a>
+            <Link className="waves-effect waves-light btn-large" to="/" style={button}>Play Again!</Link>
             <div>
                     <Footer style={footerStyle}></Footer>
                 </div>

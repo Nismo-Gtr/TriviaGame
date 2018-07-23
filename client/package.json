@@ -2,10 +2,11 @@
   "name": "game_something",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dfabry14.github.io/TriviaGameProject/",
+  "homepage": "https://nismo-gtr.github.io/TriviaGame/",
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.16.2",
+    "build": "^0.1.4",
     "firebase": "^5.1.0",
     "gh-pages": "^1.2.0",
     "react": "^16.0.0",

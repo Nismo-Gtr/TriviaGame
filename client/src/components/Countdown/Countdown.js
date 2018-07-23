@@ -3,17 +3,21 @@ import React, { Component } from "react";
 
 
 class Countdown extends Component {
-  state = {
+  constructor(props) {
+    super(props)
+    console.log(props)
+
+   this.state = {
     currentCount: 10,
     totalCount: 0
   }
-
+  }
   timer = () => {
     this.setState({
       currentCount: this.state.currentCount - 1
     })
 
-    if (this.state.currentCount < 1 || this.state.onClick === true) {
+    if (this.state.currentCount < 1 || this.props.clicked === true) {
       // clearInterval(this.intervalId);
       this.setState({totalCount: this.state.totalCount + 1})
       this.setState({ currentCount: 10 })

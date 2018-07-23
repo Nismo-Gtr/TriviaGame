@@ -63,7 +63,6 @@ const inst = {
 // };
 
 class Question extends Component {
- 
 
     state = {
         questions: null,    
@@ -71,9 +70,9 @@ class Question extends Component {
         playerScore: 0,
         playerWrong: 0,
         answerCorrect: null,
-        isDisabled: false, 
+        clicked: false
     };
-   
+
     componentWillMount() {
         // console.log(this.props.children)
         API.getQuestions('easy')
@@ -123,18 +122,23 @@ class Question extends Component {
       };
 
     handleTimeout = () => {
+
         if (this.state.isDisabled === true) {
             this.setState({
                 counter: this.state.counter + 1,
                 isDisabled: false,
-                answerCorrect: null
+                answerCorrect: null,
+                totalCount: this.state.totalCount + 1,
+                clicked: false
             })
         } else {
             this.setState({
                 playerWrong: this.state.playerWrong + 1,
                 counter: this.state.counter + 1,
                 isDisabled: false,
-                answerCorrect: null
+                answerCorrect: null,
+                totalCount: this.state.totalCount + 1,
+                clicked: false
             })
         }
     }
@@ -146,14 +150,16 @@ class Question extends Component {
                 isDisabled: !this.state.isDisabled,
                 answerCorrect: true,
                 playerScore: this.state.playerScore + 1,
-                // counter: this.state.counter + 1
+                // counter: this.state.counter + 1,
+                clicked: true
              });
         } else {
             this.setState({ 
                 isDisabled: !this.state.isDisabled,
                 answerCorrect: null,
                 playerWrong: this.state.playerWrong + 1,
-                // counter: this.state.counter + 1
+                // counter: this.state.counter + 1,
+                clicked: true
             });
         }
     }
@@ -164,8 +170,7 @@ class Question extends Component {
                 <div className="row">
                     <div className="col s12 m6">
                                 <div style={inst}>
-                                <h2><Countdown
-                                 handleTimeout={this.handleTimeout} /></h2>
+                                <h2><Countdown handleTimeout={this.handleTimeout} counter={this.state.counter}  clickCheck={this.clickCheck} clicked={this.state.clicked}/></h2>
                                  <div id="question">
                                     {this.state.questions && this.state.counter < 10 ? 
                                     this.state.questions[this.state.counter].question : ''}

@@ -167,7 +167,7 @@ class StartPage extends Component {
                         </div>
                     </Modal><br />
                 </div>
-                <Link className="waves-effect waves-light btn-large" href={process.env.PUBLIC_URL + "/game"} onClick={() => this.state.difficulty} style={button}>Start Game</Link>
+                <Link className="waves-effect waves-light btn-large" to={process.env.PUBLIC_URL + '/game'} style={button}>Start Game</Link>
                 <div>
                     <Footer style={footerStyle}></Footer>
                 </div>
