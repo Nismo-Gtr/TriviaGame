@@ -40,13 +40,11 @@ class App extends Component {
       <div>
         {/* <NavBar username={this.state.trueUser}></NavBar> */}
         <Jumbotron/>
-        <Router>
           <div>
             <Route exact path="/" component={StartPage} />
-            <Route exact path="/game" component={Question} />
+            <Route exact path={process.env.PUBLIC_URL + "/game"} component={Question} />
             <Route exact path="/endGame" component={ResultsPage} />
           </div>
-        </Router>
       </div>
     );
   }
