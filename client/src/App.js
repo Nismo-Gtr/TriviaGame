@@ -43,8 +43,8 @@ class App extends Component {
           <div>
             <Switch>
             <Route exact path="/" component={StartPage} />
-            <Route path={process.env.PUBLIC_URL + "/game"} component={Question} />
-            <Route path={process.env.PUBLIC_URL + "/endGame"} component={ResultsPage} />
+            <Route path="/game" component={Question} />
+            <Route path="/endGame" component={ResultsPage} />
             </Switch>
           </div>
       </div>

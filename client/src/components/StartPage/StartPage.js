@@ -167,7 +167,7 @@ class StartPage extends Component {
                         </div>
                     </Modal><br /> */}
                 </div>
-                <Link className="waves-effect waves-light btn-large" to={{ pathname: process.env.PUBLIC_URL + '/game', state: { difficulty: this.state.difficulty}}} style={button}>Start Game</Link>
+                <Link className="waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty}}} style={button}>Start Game</Link>
                 <div>
                     <Footer style={footerStyle}></Footer>
                 </div>

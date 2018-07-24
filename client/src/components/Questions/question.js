@@ -175,7 +175,7 @@ class Question extends Component {
                                  <div id="question">
                                     {this.state.questions && this.state.counter < 10 ? 
                                     this.state.questions[this.state.counter].question : 
-                                        <Delay wait={1000}><Redirect to={{ pathname: process.env.PUBLIC_URL + "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
+                                        <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     </div>
                                     {this.state.questions && this.state.counter < 10 ? 
                                      this.state.questions[this.state.counter].answers.map(({correct, answer}) => (
@@ -185,7 +185,7 @@ class Question extends Component {
                                          onClick={this.clickCheck} 
                                          style={button}>
                                          {answer}</Button><br /><br /></div>
-                                    )) : <Delay wait={1000}><Redirect to={{ pathname: process.env.PUBLIC_URL + "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
+                                    )) : <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     < br />
                         </div>
                     </div>
