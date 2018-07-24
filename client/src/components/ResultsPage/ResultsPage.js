@@ -1,8 +1,8 @@
-import React from "react"
+import React, { Component } from "react"
 // import './ResultsPage.css'
-import { Footer }    from 'react-materialize'
+import { Footer } from 'react-materialize'
 import { Link } from 'react-router-dom'
-import Delay from 'react-delay'
+
 
 const style = {
     backgroundColor: "blue",
@@ -61,25 +61,34 @@ const footerStyle = {
 //     textAlign: 'center'
 // };
 
-const ResultsPage = (props) => (
-        <Delay wait={300}>
-        <div className="start" style={style}>
-            <div className="button">
-                <div className="instructions" style={headline}>
-                    End of Game!
+// class ResultsPage extends Component {
+
+//     state = {
+        
+//     }
+
+    // render() {
+    //     return (
+    const ResultsPage = (props) => (
+            <div className="start" style={style}>
+                <div className="button">
+                    <div className="instructions" style={headline}>
+                        End of Game!
                 <ul style={inst}>
-                        <li>You did great! </li>
-                        <li>Your score is:</li><br />
-                        <li style={score}>{props.playerScore}</li>
-                    </ul>
+                            <li>You did great! </li>
+                            <li>Your score is:</li><br />
+                            {console.log(props.location.state)}
+                            <li style={score}>{props.location.state.playerScore}</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <Link className="waves-effect waves-light btn-large" to="/" style={button}>Play Again!</Link>
-            <div>
+                <Link className="waves-effect waves-light btn-large" to="/" style={button}>Play Again!</Link>
+                <div>
                     <Footer style={footerStyle}></Footer>
                 </div>
-        </div>
-        </Delay>
-);
+            </div>
+        );
+//     }
+// }
 
 export default ResultsPage;

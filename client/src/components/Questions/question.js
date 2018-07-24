@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-// import { Route } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Countdown from '../Countdown/Countdown'
+
 import './question.css'
 import Footer from '../Footer'
 import Button from '../../../node_modules/react-materialize/lib/Button';
-import ResultsPage from '../ResultsPage'
+// import ResultsPage from '../ResultsPage'
+import Delay from 'react-delay'
 // import StartPage from '../StartPage'
 
 
@@ -74,8 +76,7 @@ class Question extends Component {
     };
 
     componentWillMount() {
-        // console.log(this.props.children)
-        API.getQuestions('easy')
+        API.getQuestions(this.props.location.state.difficulty)
             .then(res => {
                 const questions = []
                 for (let i = 0; i < 10; i++) {
@@ -173,7 +174,8 @@ class Question extends Component {
                                 <h2><Countdown handleTimeout={this.handleTimeout} counter={this.state.counter}  clickCheck={this.clickCheck} clicked={this.state.clicked}/></h2>
                                  <div id="question">
                                     {this.state.questions && this.state.counter < 10 ? 
-                                    this.state.questions[this.state.counter].question : ''}
+                                    this.state.questions[this.state.counter].question : 
+                                        <Delay wait={1000}><Redirect to={{ pathname: process.env.PUBLIC_URL + "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     </div>
                                     {this.state.questions && this.state.counter < 10 ? 
                                      this.state.questions[this.state.counter].answers.map(({correct, answer}) => (
@@ -183,7 +185,7 @@ class Question extends Component {
                                          onClick={this.clickCheck} 
                                          style={button}>
                                          {answer}</Button><br /><br /></div>
-                                    )) : <ResultsPage playerScore={this.state.playerScore}/>}
+                                    )) : <Delay wait={1000}><Redirect to={{ pathname: process.env.PUBLIC_URL + "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     < br />
                         </div>
                     </div>

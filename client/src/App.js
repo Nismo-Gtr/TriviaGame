@@ -23,7 +23,7 @@ class App extends Component {
       if (firebaseUser) {
         console.log(`firebaseUser=${firebaseUser}`);
         var trueUser = firebaseUser.email;
-        console.log("trueUs er=", trueUser);
+        console.log("trueUser=", trueUser);
         this.setState({ trueUser })
 
 
@@ -44,7 +44,7 @@ class App extends Component {
             <Switch>
             <Route exact path="/" component={StartPage} />
             <Route path={process.env.PUBLIC_URL + "/game"} component={Question} />
-            <Route exact path="/endGame" component={ResultsPage} />
+            <Route path={process.env.PUBLIC_URL + "/endGame"} component={ResultsPage} />
             </Switch>
           </div>
       </div>
