@@ -191,8 +191,9 @@ class Question extends Component {
                     </div>
                 </div>
                 <Footer style={footerStyle} 
-                playerScore={this.state.playerScore} 
-                playerWrong={this.state.playerWrong}>
+                // playerScore={this.state.playerScore} 
+                // playerWrong={this.state.playerWrong}
+                >
                 </Footer>
             </div >
         );
