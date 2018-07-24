@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Footer, Row, Input } from "react-materialize"
+import { Modal, Footer, Row, Input } from "react-materialize"
 import { Link } from 'react-router-dom'
 import { auth } from "../../firebase"
 // import Question from "../Questions"
@@ -29,15 +29,15 @@ const footerStyle = {
     borderTopStyle: "solid",
     borderTopColor: "orange"
 }
-// const font = {
-//     textAlign: "center",
-//     color: "blue",
-//     fontWeight: "bold",
-//     fontSize: "24px",
-//     fontFamily: 'Contrail One',
-//     textShadow: "1px 1px orange",
-//     height: "500px"
-// };
+const font = {
+    textAlign: "center",
+    color: "blue",
+    fontWeight: "bold",
+    fontSize: "24px",
+    fontFamily: 'Contrail One',
+    textShadow: "1px 1px orange",
+    height: "500px"
+};
 const inst = {
     textAlign: "center",
     fontFamily: "Contrail One",
@@ -129,7 +129,7 @@ class StartPage extends Component {
                     <p className="instructions" style={headline}>
                         Instructions:</p>
                     <ul style={inst}>
-                        {/* <li>Login to your account below.</li> */}
+                        <li>Login to your account below.</li>
                         {/* <li>Invite friends to play with you!</li> */}
                         <li>You will be shown ten questions and get ten seconds to answer each one.</li>
                         <li>Choose your desired difficulty in the dropdown.</li>
@@ -142,7 +142,7 @@ class StartPage extends Component {
                             <option style={diff} value='hard'>Hard</option>
                         </Input>
                     </Row>
-                    {/* <Modal
+                    <Modal
                         style={font}
                         header='Please login or create a profile:'
                         trigger={<a className="waves-effect waves-light btn-large" href="" style={button}>Login</a>}>
@@ -166,7 +166,7 @@ class StartPage extends Component {
                             </div>
                             {this.state.error && <p>{this.state.error.message}</p>}
                         </div>
-                    </Modal><br /> */}
+                    </Modal><br />
                 </div>
                 <Link className="waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty, user: this.state.trueUser}}} style={button}>Start Game</Link>
                 <div>
