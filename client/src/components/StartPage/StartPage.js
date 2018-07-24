@@ -128,8 +128,8 @@ class StartPage extends Component {
                     <p className="instructions" style={headline}>
                         Instructions:</p>
                     <ul style={inst}>
-                        <li>Login to your account below.</li>
-                        <li>Invite friends to play with you!</li>
+                        {/* <li>Login to your account below.</li> */}
+                        {/* <li>Invite friends to play with you!</li> */}
                         <li>You will be shown ten questions and get ten seconds to answer each one.</li>
                         <li>Choose your desired difficulty in the dropdown.</li>
                         <li>Click "Start Game" when you're ready to begin!</li>
@@ -141,7 +141,7 @@ class StartPage extends Component {
                             <option style={diff} value='hard'>Hard</option>
                         </Input>
                     </Row>
-                    <Modal
+                    {/* <Modal
                         style={font}
                         header='Please login or create a profile:'
                         trigger={<a className="waves-effect waves-light btn-large" href="" style={button}>Login</a>}>
@@ -165,7 +165,7 @@ class StartPage extends Component {
                             </div>
                             {this.state.error && <p>{this.state.error.message}</p>}
                         </div>
-                    </Modal><br />
+                    </Modal><br /> */}
                 </div>
                 <Link className="waves-effect waves-light btn-large" to={{ pathname: process.env.PUBLIC_URL + '/game', state: { difficulty: this.state.difficulty}}} style={button}>Start Game</Link>
                 <div>

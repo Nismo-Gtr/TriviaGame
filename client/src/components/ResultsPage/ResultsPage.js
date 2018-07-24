@@ -77,7 +77,6 @@ const footerStyle = {
                 <ul style={inst}>
                             <li>You did great! </li>
                             <li>Your score is:</li><br />
-                            {console.log(props.location.state)}
                             <li style={score}>{props.location.state.playerScore}</li>
                         </ul>
                     </div>
