@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Modal, Footer, Row, Input } from "react-materialize"
+import { Footer, Row, Input } from "react-materialize"
 import { Link } from 'react-router-dom'
 import { auth } from "../../firebase"
 // import Question from "../Questions"
@@ -29,15 +29,15 @@ const footerStyle = {
     borderTopStyle: "solid",
     borderTopColor: "orange"
 }
-const font = {
-    textAlign: "center",
-    color: "blue",
-    fontWeight: "bold",
-    fontSize: "24px",
-    fontFamily: 'Contrail One',
-    textShadow: "1px 1px orange",
-    height: "500px"
-};
+// const font = {
+//     textAlign: "center",
+//     color: "blue",
+//     fontWeight: "bold",
+//     fontSize: "24px",
+//     fontFamily: 'Contrail One',
+//     textShadow: "1px 1px orange",
+//     height: "500px"
+// };
 const inst = {
     textAlign: "center",
     fontFamily: "Contrail One",
@@ -124,6 +124,7 @@ class StartPage extends Component {
     render() {
         return (
             <div className="start" style={style}>
+            {console.log(this.state)}
                 <div className="button">
                     <p className="instructions" style={headline}>
                         Instructions:</p>
@@ -167,7 +168,7 @@ class StartPage extends Component {
                         </div>
                     </Modal><br /> */}
                 </div>
-                <Link className="waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty}}} style={button}>Start Game</Link>
+                <Link className="waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty, user: this.state.trueUser}}} style={button}>Start Game</Link>
                 <div>
                     <Footer style={footerStyle}></Footer>
                 </div>

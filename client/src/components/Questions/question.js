@@ -168,6 +168,7 @@ class Question extends Component {
     render() {
         return (
             <div className="center" style={style}>
+                {console.log()}
                 <div className="row">
                     <div className="col s12 m6">
                                 <div style={inst}>

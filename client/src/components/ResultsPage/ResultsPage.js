@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 // import './ResultsPage.css'
 import { Footer } from 'react-materialize'
 import { Link } from 'react-router-dom'
@@ -76,6 +76,7 @@ const footerStyle = {
                         End of Game!
                 <ul style={inst}>
                             <li>You did great! </li>
+                            {props.user}
                             <li>Your score is:</li><br />
                             <li style={score}>{props.location.state.playerScore}</li>
                         </ul>

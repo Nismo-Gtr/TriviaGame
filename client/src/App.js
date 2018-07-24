@@ -39,12 +39,12 @@ class App extends Component {
     return (
       <div>
         {/* <NavBar username={this.state.trueUser}></NavBar> */}
-        <Jumbotron/>
+        <Jumbotron />
           <div>
             <Switch>
             <Route exact path="/" component={StartPage} />
             <Route path="/game" component={Question} />
-            <Route path="/endGame" component={ResultsPage} />
+            <Route path="/endGame" exact render={(props) => (<ResultsPage user={this.state.trueUser} {...props}/>)}/>
             </Switch>
           </div>
       </div>
