@@ -61,14 +61,6 @@ const footerStyle = {
 //     textAlign: 'center'
 // };
 
-// class ResultsPage extends Component {
-
-//     state = {
-        
-//     }
-
-    // render() {
-    //     return (
     const ResultsPage = (props) => (
             <div className="start" style={style}>
                 <div className="button">

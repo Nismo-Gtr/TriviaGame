@@ -67,10 +67,12 @@ const diff = {
 class StartPage extends Component {
 
     state = {
+        username: "",
         email: "",
         password: "",
         error: null,
-        difficulty: 'easy'
+        difficulty: 'easy',
+        loggedIn: false
     }
 
     handleInputChange = event => {
@@ -82,8 +84,8 @@ class StartPage extends Component {
 
     handleCreateUser = event => {
         event.preventDefault();
-        auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.setState({ email: "", password: "", error: null }))
+        auth.doCreateUserWithEmailAndPassword(this.state.username, this.state.email, this.state.password)
+            .then(() => this.setState({ username: "", email: "", password: "", error: null, loggedIn: true }))
             .catch(error => {
                 this.setState({ error })
             });
@@ -92,7 +94,7 @@ class StartPage extends Component {
     handleUserLogin = event => {
         event.preventDefault();
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.setState({ email: "", password: "", error: null }))
+            .then(() => this.setState({ email: "", password: "", error: null, loggedIn: true }))
             .catch(error => {
                 this.setState({ error })
             });
@@ -100,7 +102,7 @@ class StartPage extends Component {
 
     handleUserLogout = event => {
         event.preventDefault();
-        auth.doSignOut();
+        auth.doSignOut().then(() => this.setState({loggedIn: false})).catch(error => {this.setState({ error })});
     }
 
     handleChange = value => {
@@ -124,9 +126,9 @@ class StartPage extends Component {
     render() {
         return (
             <div className="start" style={style}>
-            {console.log(this.state)}
                 <div className="button">
                     <p className="instructions" style={headline}>
+            {console.log(this.props.user)}
                         Instructions:</p>
                     <ul style={inst}>
                         <li>Login to your account below.</li>
@@ -144,7 +146,7 @@ class StartPage extends Component {
                     </Row>
                     <Modal
                         style={font}
-                        header='Please login or create a profile:'
+                        header={this.state.loggedIn === false ? 'Please login or create a profile:': `Welcome ` + this.props.user}
                         trigger={<a className="waves-effect waves-light btn-large" href="" style={button}>Login</a>}>
                         <div className="modal-content">
                             <div className="modal-header">
@@ -162,7 +164,7 @@ class StartPage extends Component {
                             <div className="modal-footer">
                                 <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action" disabled={!this.state.email || !this.state.password}>Log in</button>
                                 <button id="btnSignUp" onClick={this.handleCreateUser} disabled={!this.state.email || !this.state.password} className="btn btn-secondary">Sign up</button>
-                                <button id="btnLogout" onClick={this.handleUserLogout} className={this.props.username ? "btn btn-action" : "btn btn-action hide"}>Log out</button>
+                                <button id="btnLogout" onClick={this.handleUserLogout} disabled={this.state.email || this.state.password} className="btn btn-action">Log out</button>
                             </div>
                             {this.state.error && <p>{this.state.error.message}</p>}
                         </div>

@@ -24,7 +24,7 @@ const font = {
 const Footer = (props) => (
 <footer style={style} className="footer">
 		<div style={font} className="container">
-			{/* <span>Correct Guesses: {props.playerScore} Wrong Guesses:{props.playerWrong} </span> */}
+			<span>Current User: {props.user}  </span>
 		</div>
 	</footer>
 )

@@ -77,38 +77,50 @@ class Question extends Component {
 
     componentWillMount() {
         API.getQuestions(this.props.location.state.difficulty)
-            .then(res => {
-                const questions = []
-                for (let i = 0; i < 10; i++) {
-
-                    const answers = [
-                        {
-                            correct: "correct",
-                            answer: res.data.results[i].correct_answer
-                        },
-                        {
-                            correct: "not-correct",
-                            answer: res.data.results[i].incorrect_answers[0]
-                        },
-                        {
-                            correct: "not-correct",
-                            answer: res.data.results[i].incorrect_answers[1]
-                        },
-                        {
-                            correct: "not-correct",
-                            answer: res.data.results[i].incorrect_answers[2]
-                        },
-                    ];
-                        questions.push({
-                        question: res.data.results[i].question,
-                        answers: this.shuffle(answers)
-                    }); 
-                }
-                this.setState({ questions }) 
-            })
+        .then(res => {
+            const questions = []
+            for (let i = 0; i < 10; i++) {
+                
+                const answers = [
+                    {
+                        correct: "correct",
+                        answer: res.data.results[i].correct_answer
+                    },
+                    {
+                        correct: "not-correct",
+                        answer: res.data.results[i].incorrect_answers[0]
+                    },
+                    {
+                        correct: "not-correct",
+                        answer: res.data.results[i].incorrect_answers[1]
+                    },
+                    {
+                        correct: "not-correct",
+                        answer: res.data.results[i].incorrect_answers[2]
+                    },
+                ];
+                questions.push({
+                    question: res.data.results[i].question,
+                    answers: this.shuffle(answers)
+                }); 
+            }
+            this.setState({ questions }) 
+            // console.log(questions)
+            // JSON.parse(questions[0].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`);
+            // this.convertQuotes(questions)
+            // this.convertQuotes([...questions])
+            // console.log((questions[2].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
+            // console.log(JSON.parse(questions[0].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
+        })
     }
-
     
+    
+    convertQuotes = (questions) => {
+        for (var i = 0;i < this.state.questions.length; i++ ){
+        JSON.stringify((questions[i].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
+        console.log(this.state.questions);
+    }
+}
 
     shuffle = data => {
         let i = data.length - 1;
@@ -168,7 +180,7 @@ class Question extends Component {
     render() {
         return (
             <div className="center" style={style}>
-                {console.log()}
+                {/* {console.log(this.props.user)} */}
                 <div className="row">
                     <div className="col s12 m6">
                                 <div style={inst}>
@@ -176,7 +188,7 @@ class Question extends Component {
                                  <div id="question">
                                     {this.state.questions && this.state.counter < 10 ? 
                                     this.state.questions[this.state.counter].question : 
-                                        <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
+                                        <Delay wait={10000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     </div>
                                     {this.state.questions && this.state.counter < 10 ? 
                                      this.state.questions[this.state.counter].answers.map(({correct, answer}) => (
@@ -191,7 +203,8 @@ class Question extends Component {
                         </div>
                     </div>
                 </div>
-                <Footer style={footerStyle} 
+                <Footer style={footerStyle}
+                user={this.props.user} 
                 // playerScore={this.state.playerScore} 
                 // playerWrong={this.state.playerWrong}
                 >
