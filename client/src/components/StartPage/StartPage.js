@@ -64,6 +64,11 @@ const diff = {
     textAlign: 'center'
 };
 
+const signUp = {
+    display: "flex",
+    alignItems: 'flex-start'
+}
+
 class StartPage extends Component {
 
     state = {
@@ -147,7 +152,7 @@ class StartPage extends Component {
                     <Modal
                         style={font}
                         header={this.state.loggedIn === false ? 'Please login or create a profile:': `Welcome ` + this.props.user}
-                        trigger={<a className="waves-effect waves-light btn-large" href="" style={button}>Login</a>}>
+                        trigger={this.state.loggedIn === false ? <a className="waves-effect waves-light btn-large" href="" style={button}>Login</a> : <a className="waves-effect waves-light btn-large" href="" style={button}>Log out</a>}>
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h6 className="modal-title" id="exampleModalLongTitle">Sign In</h6>
@@ -162,9 +167,9 @@ class StartPage extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action" disabled={!this.state.email || !this.state.password}>Log in</button>
-                                <button id="btnSignUp" onClick={this.handleCreateUser} disabled={!this.state.email || !this.state.password} className="btn btn-secondary">Sign up</button>
-                                <button id="btnLogout" onClick={this.handleUserLogout} disabled={this.state.email || this.state.password} className="btn btn-action">Log out</button>
+                                {this.state.loggedIn === false ? [<button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary col s2 m2" style={diff}>Sign up</button>,  <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action col s10 m10" style={button}>Log in</button>]
+                                // <button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary">Sign up</button>
+                                : <button id="btnLogout" onClick={this.handleUserLogout} className="btn btn-action" style={button}>Log out</button>}
                             </div>
                             {this.state.error && <p>{this.state.error.message}</p>}
                         </div>
