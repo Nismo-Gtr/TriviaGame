@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import API from '../../utils/API'
 import { Redirect } from 'react-router-dom'
 import Countdown from '../Countdown/Countdown'
-
+import correctSound from '../../assets/SmartestManAlive.mp3'
+import wrongSound from '../../assets/error.wav'
+import yeah from '../../assets/shoutYeah.wav'
 import './question.css'
 import Footer from '../Footer'
 import Button from '../../../node_modules/react-materialize/lib/Button';
 // import ResultsPage from '../ResultsPage'
 import Delay from 'react-delay'
 // import StartPage from '../StartPage'
+// import Audio from '../Audio/Audio.js'
 
 
 
@@ -72,7 +75,8 @@ class Question extends Component {
         playerScore: 0,
         playerWrong: 0,
         answerCorrect: null,
-        clicked: false
+        clicked: false,
+        sound: ""
     };
 
     componentWillMount() {
@@ -135,14 +139,14 @@ class Question extends Component {
       };
 
     handleTimeout = () => {
-
         if (this.state.isDisabled === true) {
             this.setState({
                 counter: this.state.counter + 1,
                 isDisabled: false,
                 answerCorrect: null,
                 totalCount: this.state.totalCount + 1,
-                clicked: false
+                clicked: false,
+                sound: ''
             })
         } else {
             this.setState({
@@ -151,7 +155,8 @@ class Question extends Component {
                 isDisabled: false,
                 answerCorrect: null,
                 totalCount: this.state.totalCount + 1,
-                clicked: false
+                clicked: false,
+                sound: ''
             })
         }
     }
@@ -163,16 +168,16 @@ class Question extends Component {
                 isDisabled: !this.state.isDisabled,
                 answerCorrect: true,
                 playerScore: this.state.playerScore + 1,
-                // counter: this.state.counter + 1,
-                clicked: true
+                clicked: true,
+                sound: yeah
              });
-        } else {
+        } else {    
             this.setState({ 
                 isDisabled: !this.state.isDisabled,
                 answerCorrect: null,
                 playerWrong: this.state.playerWrong + 1,
-                // counter: this.state.counter + 1,
-                clicked: true
+                clicked: true,
+                sound: wrongSound
             });
         }
     }
@@ -180,7 +185,6 @@ class Question extends Component {
     render() {
         return (
             <div className="center" style={style}>
-                {/* {console.log(this.props.user)} */}
                 <div className="row">
                     <div className="col s12 m6">
                                 <div style={inst}>
@@ -192,7 +196,7 @@ class Question extends Component {
                                     </div>
                                     {this.state.questions && this.state.counter < 10 ? 
                                      this.state.questions[this.state.counter].answers.map(({correct, answer}) => (
-                                        <div><Button 
+                                        <div><audio src={this.state.sound} autoPlay></audio><Button    
                                          id={correct}
                                          disabled={this.state.isDisabled}
                                          onClick={this.clickCheck} 

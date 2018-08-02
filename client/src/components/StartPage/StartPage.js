@@ -64,11 +64,6 @@ const diff = {
     textAlign: 'center'
 };
 
-const signUp = {
-    display: "flex",
-    alignItems: 'flex-start'
-}
-
 class StartPage extends Component {
 
     state = {
