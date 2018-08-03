@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import API from '../../utils/API'
 import { Redirect } from 'react-router-dom'
 import Countdown from '../Countdown/Countdown'
-import correctSound from '../../assets/SmartestManAlive.mp3'
+// import correctSound from '../../assets/SmartestManAlive.mp3'
 import wrongSound from '../../assets/error.wav'
 import yeah from '../../assets/shoutYeah.wav'
 import './question.css'
@@ -10,6 +10,7 @@ import Footer from '../Footer'
 import Button from '../../../node_modules/react-materialize/lib/Button';
 // import ResultsPage from '../ResultsPage'
 import Delay from 'react-delay'
+// import { TimeoutError } from '../../../../../../../node_modules/rxjs';
 // import StartPage from '../StartPage'
 // import Audio from '../Audio/Audio.js'
 
@@ -139,6 +140,7 @@ class Question extends Component {
       };
 
     handleTimeout = () => {
+        // setTimeout(() => {
         if (this.state.isDisabled === true) {
             this.setState({
                 counter: this.state.counter + 1,
@@ -159,8 +161,10 @@ class Question extends Component {
                 sound: ''
             })
         }
+    // }, 1000);
+    console.log(this.state.counter)
     }
-
+    
     clickCheck = event => {
         let answer = event.target.id
         if (answer === "correct") {
@@ -188,11 +192,11 @@ class Question extends Component {
                 <div className="row">
                     <div className="col s12 m6">
                                 <div style={inst}>
-                                <h2><Countdown handleTimeout={this.handleTimeout} counter={this.state.counter}  clickCheck={this.clickCheck} clicked={this.state.clicked}/></h2>
+                                <h2><Countdown handleTimeout={this.handleTimeout} counter={this.state.counter} clickCheck={this.clickCheck} clicked={this.state.clicked}/></h2>
                                  <div id="question">
                                     {this.state.questions && this.state.counter < 10 ? 
                                     this.state.questions[this.state.counter].question : 
-                                        <Delay wait={10000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
+                                        <Delay wait={2000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     </div>
                                     {this.state.questions && this.state.counter < 10 ? 
                                      this.state.questions[this.state.counter].answers.map(({correct, answer}) => (
@@ -202,7 +206,7 @@ class Question extends Component {
                                          onClick={this.clickCheck} 
                                          style={button}>
                                          {answer}</Button><br /><br /></div>
-                                    )) : <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
+                                    )) : <Delay wait={2000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     < br />
                         </div>
                     </div>

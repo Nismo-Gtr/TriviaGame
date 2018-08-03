@@ -121,8 +121,6 @@ class StartPage extends Component {
         }
     }
 
-
-
     render() {
         return (
             <div className="start" style={style}>
@@ -151,7 +149,7 @@ class StartPage extends Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h6 className="modal-title" id="exampleModalLongTitle">Sign In</h6>
-
+                                {console.log(this.state.loggedIn)}
                             </div>
 
                             <div className="modal-body">
@@ -162,7 +160,7 @@ class StartPage extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                {this.state.loggedIn === false ? [<button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary col s2 m2" style={diff}>Sign up</button>,  <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action col s10 m10" style={button}>Log in</button>]
+                                {this.props.user === "" ? [<button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary col s2 m2" style={diff}>Sign up</button>,  <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action col s10 m10" style={button}>Log in</button>]
                                 // <button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary">Sign up</button>
                                 : <button id="btnLogout" onClick={this.handleUserLogout} className="btn btn-action" style={button}>Log out</button>}
                             </div>
