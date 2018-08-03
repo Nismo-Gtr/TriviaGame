@@ -71,7 +71,7 @@ const inst = {
 class Question extends Component {
 
     state = {
-        questions: null,    
+        questions: null,
         counter: 0,
         playerScore: 0,
         playerWrong: 0,
@@ -80,103 +80,93 @@ class Question extends Component {
         sound: ""
     };
 
+
+
     componentWillMount() {
         API.getQuestions(this.props.location.state.difficulty)
-        .then(res => {
-            const questions = []
-            for (let i = 0; i < 10; i++) {
-                
-                const answers = [
-                    {
-                        correct: "correct",
-                        answer: res.data.results[i].correct_answer
-                    },
-                    {
-                        correct: "not-correct",
-                        answer: res.data.results[i].incorrect_answers[0]
-                    },
-                    {
-                        correct: "not-correct",
-                        answer: res.data.results[i].incorrect_answers[1]
-                    },
-                    {
-                        correct: "not-correct",
-                        answer: res.data.results[i].incorrect_answers[2]
-                    },
-                ];
-                questions.push({
-                    question: res.data.results[i].question,
-                    answers: this.shuffle(answers)
-                }); 
-            }
-            // console.log(questions)
-            // JSON.parse(questions[0].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`);
-            // this.convertQuotes(questions)
-            // this.convertQuotes([...questions])
-            // console.log((questions[2].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
-            // console.log(JSON.parse(questions[0].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
-            this.setState({ questions }) 
-        })
+            .then(res => {
+                const questions = []
+                for (let i = 0; i < 10; i++) {
+
+                    const answers = [
+                        {
+                            correct: "correct",
+                            answer: res.data.results[i].correct_answer.replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`)
+                        },
+                        {
+                            correct: "not-correct",
+                            answer: res.data.results[i].incorrect_answers[0].replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`)
+                        },
+                        {
+                            correct: "not-correct",
+                            answer: res.data.results[i].incorrect_answers[1].replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`)
+                        },
+                        {
+                            correct: "not-correct",
+                            answer: res.data.results[i].incorrect_answers[2].replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`)
+                        },
+                    ];
+                    console.log(questions)
+                    questions.push({
+                        question: res.data.results[i].question.replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`),
+                        answers: this.shuffle(answers)
+                    });
+                }
+                this.setState({ questions })
+            })
     }
-    
-    
-    convertQuotes = (questions) => {
-        for (var i = 0;i < this.state.questions.length; i++ ){
-        JSON.stringify((questions[i].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
-        console.log(this.state.questions);
-    }
-}
+
 
     shuffle = data => {
         let i = data.length - 1;
         while (i > 0) {
-          const j = Math.floor(Math.random() * (i + 1));
-          const temp = data[i];
-          data[i] = data[j];
-          data[j] = temp;
-          i--;
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = data[i];
+            data[i] = data[j];
+            data[j] = temp;
+            i--;
         }
         return data;
-      };
+    };
 
     handleTimeout = () => {
         setTimeout(() => {
-        if (this.state.isDisabled === true) {
-            this.setState({
-                counter: this.state.counter + 1,
-                isDisabled: false,
-                answerCorrect: null,
-                totalCount: this.state.totalCount + 1,
-                clicked: false,
-                sound: ''
-            })
-        } else {
-            this.setState({
-                playerWrong: this.state.playerWrong + 1,
-                counter: this.state.counter + 1,
-                isDisabled: false,
-                answerCorrect: null,
-                totalCount: this.state.totalCount + 1,
-                clicked: false,
-                sound: ''
-            })
-        }
-    },1000);
-    console.log(this.state.counter)
+            if (this.state.isDisabled === true) {
+                this.setState({
+                    counter: this.state.counter + 1,
+                    isDisabled: false,
+                    answerCorrect: null,
+                    totalCount: this.state.totalCount + 1,
+                    clicked: false,
+                    sound: ''
+                })
+            } else {
+                this.setState({
+                    playerWrong: this.state.playerWrong + 1,
+                    counter: this.state.counter + 1,
+                    isDisabled: false,
+                    answerCorrect: null,
+                    totalCount: this.state.totalCount + 1,
+                    clicked: false,
+                    sound: ''
+                })
+            }
+        }, 1000);
+        console.log(this.state.counter)
     }
-    
+
     clickCheck = event => {
         let answer = event.target.id
         if (answer === "correct") {
-            this.setState({ 
+            this.setState({
                 isDisabled: !this.state.isDisabled,
                 answerCorrect: true,
                 playerScore: this.state.playerScore + 1,
                 clicked: true,
                 sound: yeah
-             });
-        } else {    
-            this.setState({ 
+            });
+        } else {
+            this.setState({
                 isDisabled: !this.state.isDisabled,
                 answerCorrect: null,
                 playerWrong: this.state.playerWrong + 1,
@@ -191,28 +181,28 @@ class Question extends Component {
             <div className="center" style={style}>
                 <div className="row">
                     <div className="col s12 m6">
-                                <div style={inst}>
-                                <h2><Countdown handleTimeout={this.handleTimeout} clicked={this.state.clicked}/></h2>
-                                 <div id="question">
-                                    {this.state.questions && this.state.counter < 10 ? 
-                                    this.state.questions[this.state.counter].question : 
-                                        <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
-                                    </div>
-                                    {this.state.questions && this.state.counter < 10 ? 
-                                     this.state.questions[this.state.counter].answers.map(({correct, answer}) => (
-                                        <div><audio src={this.state.sound} autoPlay></audio><Button    
-                                         id={correct}
-                                         disabled={this.state.isDisabled}
-                                         onClick={this.clickCheck} 
-                                         style={button}>
-                                         {answer}</Button><br /><br /></div>
-                                    )) : <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
-                                    < br />
+                        <div style={inst}>
+                            <h2><Countdown handleTimeout={this.handleTimeout} clicked={this.state.clicked} /></h2>
+                            <div id="question">
+                                {this.state.questions && this.state.counter < 10 ?
+                                    this.state.questions[this.state.counter].question :
+                                    <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore } }}></Redirect></Delay>}
+                            </div>
+                            {this.state.questions && this.state.counter < 10 ?
+                                this.state.questions[this.state.counter].answers.map(({ correct, answer }) => (
+                                    <div><audio src={this.state.sound} autoPlay></audio><Button
+                                        id={correct}
+                                        disabled={this.state.isDisabled}
+                                        onClick={this.clickCheck}
+                                        style={button}>
+                                        {answer}</Button><br /><br /></div>
+                                )) : <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore } }}></Redirect></Delay>}
+                            < br />
                         </div>
                     </div>
                 </div>
                 <Footer style={footerStyle}
-                user={this.props.user} 
+                    user={this.props.user}
                 // playerScore={this.state.playerScore} 
                 // playerWrong={this.state.playerWrong}
                 >
