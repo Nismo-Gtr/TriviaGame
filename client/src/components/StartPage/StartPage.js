@@ -71,8 +71,7 @@ class StartPage extends Component {
         email: "",
         password: "",
         error: null,
-        difficulty: 'easy',
-        loggedIn: false
+        difficulty: 'easy'
     }
 
     handleInputChange = event => {
@@ -129,7 +128,7 @@ class StartPage extends Component {
             {console.log(this.props.user)}
                         Instructions:</p>
                     <ul style={inst}>
-                        <li>Login to your account below.</li>
+                        <li>Login to or create your account below.</li>
                         {/* <li>Invite friends to play with you!</li> */}
                         <li>You will be shown ten questions and get ten seconds to answer each one.</li>
                         <li>Choose your desired difficulty in the dropdown.</li>
@@ -144,14 +143,12 @@ class StartPage extends Component {
                     </Row>
                     <Modal
                         style={font}
-                        header={this.state.loggedIn === false ? 'Please login or create a profile:': `Welcome ` + this.props.user}
-                        trigger={this.state.loggedIn === false ? <a className="waves-effect waves-light btn-large" href="" style={button}>Login</a> : <a className="waves-effect waves-light btn-large" href="" style={button}>Log out</a>}>
+                        header={this.props.user === null ? 'Please login or create a profile:': `Welcome ${this.props.user}`}
+                        trigger={this.props.user === null ? <a className="waves-effect waves-light btn-large" href="" style={button}>Login</a> : <a className="waves-effect waves-light btn-large" href="" style={button}>Log out</a>}>
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h6 className="modal-title" id="exampleModalLongTitle">Sign In</h6>
-                                {console.log(this.state.loggedIn)}
                             </div>
-
                             <div className="modal-body">
                                 <form>
                                     <input id="txtEmail" type="email" name="email" value={this.state.email} onChange={this.handleInputChange} placeholder="Email" />
@@ -160,7 +157,7 @@ class StartPage extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                {this.props.user === "" ? [<button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary col s2 m2" style={diff}>Sign up</button>,  <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action col s10 m10" style={button}>Log in</button>]
+                                {this.props.user === null ? [<button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary col s2 m2" style={diff}>Sign up</button>,  <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action col s10 m10" style={button}>Log in</button>]
                                 // <button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary">Sign up</button>
                                 : <button id="btnLogout" onClick={this.handleUserLogout} className="btn btn-action" style={button}>Log out</button>}
                             </div>
@@ -168,7 +165,7 @@ class StartPage extends Component {
                         </div>
                     </Modal><br />
                 </div>
-                <Link className="waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty, user: this.state.trueUser}}} style={button}>Start Game</Link>
+                {this.props.user === null ? "" : <Link className="waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty, user: this.state.trueUser}}} style={button}>Start Game</Link>}
                 <div>
                     <Footer style={footerStyle}></Footer>
                 </div>

@@ -24,7 +24,7 @@ const font = {
 const Footer = (props) => (
 <footer style={style} className="footer">
 		<div style={font} className="container">
-			<span>Current User: {props.user}  </span>
+			<span>{props.user === null ? "" : `Current Player - ${props.user}`}</span>
 		</div>
 	</footer>
 )
