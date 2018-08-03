@@ -18,10 +18,11 @@ class Countdown extends Component {
     })
 
     if (this.state.currentCount < 1 || this.props.clicked === true) {
-      // clearInterval(this.intervalId);
+      clearInterval(this.intervalId);
       this.setState({totalCount: this.state.totalCount + 1})
       this.setState({ currentCount: 10 })
       this.props.handleTimeout();
+      this.intervalId = setInterval(this.timer, 1000);
     } else if (this.state.totalCount > 9) {
       clearInterval(this.intervalId);
       this.setState({currentCount: null})

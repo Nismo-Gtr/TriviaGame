@@ -140,7 +140,7 @@ class Question extends Component {
       };
 
     handleTimeout = () => {
-        // setTimeout(() => {
+        setTimeout(() => {
         if (this.state.isDisabled === true) {
             this.setState({
                 counter: this.state.counter + 1,
@@ -161,7 +161,7 @@ class Question extends Component {
                 sound: ''
             })
         }
-    // }, 1000);
+    },1000);
     console.log(this.state.counter)
     }
     
@@ -192,11 +192,11 @@ class Question extends Component {
                 <div className="row">
                     <div className="col s12 m6">
                                 <div style={inst}>
-                                <h2><Countdown handleTimeout={this.handleTimeout} counter={this.state.counter} clickCheck={this.clickCheck} clicked={this.state.clicked}/></h2>
+                                <h2><Countdown handleTimeout={this.handleTimeout} clicked={this.state.clicked}/></h2>
                                  <div id="question">
                                     {this.state.questions && this.state.counter < 10 ? 
                                     this.state.questions[this.state.counter].question : 
-                                        <Delay wait={2000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
+                                        <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     </div>
                                     {this.state.questions && this.state.counter < 10 ? 
                                      this.state.questions[this.state.counter].answers.map(({correct, answer}) => (
@@ -206,7 +206,7 @@ class Question extends Component {
                                          onClick={this.clickCheck} 
                                          style={button}>
                                          {answer}</Button><br /><br /></div>
-                                    )) : <Delay wait={2000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
+                                    )) : <Delay wait={1000}><Redirect to={{ pathname: "/endGame", state: { playerScore: this.state.playerScore }}}></Redirect></Delay>}
                                     < br />
                         </div>
                     </div>
