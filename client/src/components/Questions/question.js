@@ -109,13 +109,13 @@ class Question extends Component {
                     answers: this.shuffle(answers)
                 }); 
             }
-            this.setState({ questions }) 
             // console.log(questions)
             // JSON.parse(questions[0].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`);
             // this.convertQuotes(questions)
             // this.convertQuotes([...questions])
             // console.log((questions[2].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
             // console.log(JSON.parse(questions[0].question).replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`));
+            this.setState({ questions }) 
         })
     }
     
