@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Modal, Footer, Row, Input } from "react-materialize"
 import { Link } from 'react-router-dom'
 import { auth } from "../../firebase"
-// import Question from "../Questions"
+
 
 const style = {
     backgroundColor: "blue",
@@ -125,7 +125,7 @@ class StartPage extends Component {
         // Code for dynamic category list
         // console.log(value.currentTarget.selectedOptions[0].value)
         this.setState({ category: value.currentTarget.selectedOptions[0].value })
-        console.log(this.state.category)
+        // console.log(this.state.category)
     }
 
     render() {
@@ -139,7 +139,7 @@ class StartPage extends Component {
                         <li>Login to or create your account below.</li>
                         {/* <li>Invite friends to play with you!</li> */}
                         <li>You will be shown ten questions and get ten seconds to answer each one.</li>
-                        <li>Choose your desired difficulty in the dropdown.</li>
+                        <li>Choose your desired category and difficulty in the dropdown.</li>
                         <li>Click "Start Game" when you're ready to begin!</li>
                     </ul>
                     <Row style={diff}>
