@@ -6,7 +6,7 @@ import wrongSound from '../../assets/error.wav'
 class Countdown extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
+    // console.log(props)
 
     this.state = {
       currentCount: 10,

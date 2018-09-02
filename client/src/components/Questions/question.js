@@ -83,7 +83,8 @@ class Question extends Component {
 
 
     componentWillMount() {
-        API.getQuestions(this.props.location.state.difficulty)
+        // console.log(this.props.location.state)
+        API.getQuestions(this.props.location.state.category, this.props.location.state.difficulty)
             .then(res => {
                 const questions = []
                 for (let i = 0; i < 10; i++) {
@@ -106,7 +107,7 @@ class Question extends Component {
                             answer: res.data.results[i].incorrect_answers[2].replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`)
                         },
                     ];
-                    console.log(questions)
+                    // console.log(questions)
                     questions.push({
                         question: res.data.results[i].question.replace("&amp;",`&` ).replace("&quot;",`"` ).replace("&quot;",`"` ).replace("quot;",`"` ).replace( "&#039;",`'`).replace("#039;",`'`),
                         answers: this.shuffle(answers)

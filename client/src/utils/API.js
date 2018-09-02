@@ -1,5 +1,7 @@
 import axios from "axios";
-const BASEURL = "https://opentdb.com/api.php?amount=10&difficulty=";
+const BASEURL = "https://opentdb.com/api.php?amount=10";
+const CATSURL = "&category=";
+const DIFFURL = "&difficulty=";
 const ENDURL = "&type=multiple";
 
 
@@ -12,7 +14,7 @@ export default {
     // addUsers: function() {
     //     return axios.post("/api/users", userData);
     // },
-    getQuestions: function(difficulty) {
-        return axios.get(BASEURL + difficulty + ENDURL)
+    getQuestions: function(category, difficulty) {
+    return axios.get(BASEURL + CATSURL + category + DIFFURL + difficulty + ENDURL)
     }
   }
