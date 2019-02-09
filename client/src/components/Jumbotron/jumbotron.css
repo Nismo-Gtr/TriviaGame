@@ -5,14 +5,23 @@
     border-bottom-style: solid;
     border-color: orange
 }
-.header {
+.header,
+.userHeader {
     font-family: "Press Start 2P";
     margin-top: -5px;
-    font-size: 50px;
     color: orange;
     text-align: center;
     letter-spacing: 15px
 }
+
+.header {
+    font-size: 50px;
+}
+
+.userHeader {
+    font-size: 24px;
+}
+
 .inst {
     font-family: 'Press Start 2P';
     text-align: center;

@@ -133,7 +133,6 @@ class StartPage extends Component {
             <div className="start" style={style}>
                 <div className="button">
                     <p className="instructions" style={headline}>
-                        {/* {console.log(this.props.user)} */}
                         Instructions:</p>
                     <ul style={inst}>
                         <li>Login to or create your account below.</li>
@@ -142,7 +141,7 @@ class StartPage extends Component {
                         <li>Choose your desired category and difficulty in the dropdown.</li>
                         <li>Click "Start Game" when you're ready to begin!</li>
                     </ul>
-                    <Row style={diff}>
+                    {this.props.user === null ? "" :<Row style={diff}>
                         <Input onChange={this.categoryList} category={this.state.category} s={12} type='select'>
                             <option style={diff} value=''>Random</option>
                             <option style={diff} value='9'>General Knowledge</option>
@@ -170,21 +169,22 @@ class StartPage extends Component {
                             <option style={diff} value='31'>Japanese Anime and Manga</option>
                             <option style={diff} value='32'>Cartoons and Animations</option>
                         </Input>
-                    </Row>
-                    <Row style={diff}>
+                    </Row>}
+                    {this.props.user === null ? "" :<Row style={diff}>
                         <Input onChange={this.handleChange} s={12} type='select'>
                             <option style={diff} value='easy'>Easy</option>
                             <option style={diff} value='medium'>Medium</option>
                             <option style={diff} value='hard'>Hard</option>
                         </Input>
-                    </Row>
+                    </Row>}
+                    {this.props.user === null ? "" : <a className="waves-effect waves-light btn-large" href="" onClick={this.handleUserLogout} style={button}>Log out</a>}
                     <Modal
                         style={font}
                         header={this.props.user === null ? 'Please login or create a profile:' : `Welcome ${this.props.user}`}
-                        trigger={this.props.user === null ? <a className="waves-effect waves-light btn-large" href="" style={button}>Login</a> : <a className="waves-effect waves-light btn-large" href="" style={button}>Log out</a>}>
+                        trigger={this.props.user === null ? <a className="waves-effect waves-light btn-large" href="" style={button}>Log in</a> : ""}>
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h6 className="modal-title" id="exampleModalLongTitle">Sign In</h6>
+                                <h6 className="modal-title">Log In</h6>
                             </div>
                             <div className="modal-body">
                                 <form>
