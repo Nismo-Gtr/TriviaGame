@@ -1,25 +1,36 @@
 .size {
-    height: 165px;
+    /* margin: 0; */
+    /* width: 100vw; */
+    height: auto;
     background-color: black;
     border-bottom: 4px;
     border-bottom-style: solid;
-    border-color: orange
+    border-color: orange;
+    display: grid;
+    /* grid-template-columns: 2fr 8fr 2fr; */
 }
 .header,
 .userHeader {
     font-family: "Press Start 2P";
-    margin-top: -5px;
+    margin-top: -5vh;
+    padding: 2em 0 0 0;
+    background-color: black;
     color: orange;
     text-align: center;
-    letter-spacing: 15px
+    letter-spacing: .5em;
 }
 
 .header {
-    font-size: 50px;
+    font-size: 3em;
+    max-height: 20vh;
 }
 
-.userHeader {
-    font-size: 24px;
+.userHeader h3 {
+    font-size: 2em;
+}
+.userHeader p {
+    padding: 2em 0 0 0; 
+    font-size: 1.5em;
 }
 
 .inst {
@@ -28,4 +39,25 @@
     color: orange;
     letter-spacing: 5px;
     font-size: 12px
+}
+
+@media screen and (max-width: 500px) {
+    /* .size {
+        height: auto;
+    } */
+    .header {
+        font-size: 2em;
+        padding: 2.5em 0 0 0;
+    }
+    
+    .userHeader {
+        padding: 4em 0 0 0;
+    }
+
+    .userHeader h3 {
+        font-size: 1em;
+    }
+    .userHeader p {
+        font-size: .75em;
+    };
 }

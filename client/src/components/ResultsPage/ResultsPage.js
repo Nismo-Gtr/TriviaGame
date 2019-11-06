@@ -1,13 +1,11 @@
 import React from "react"
 // import './ResultsPage.css'
-import { Footer } from 'react-materialize'
 import { Link } from 'react-router-dom'
 
 
 const style = {
     backgroundColor: "blue",
-    height: "700px",
-    marginTop: "-30px",
+    height: "75vh",
     textAlign: "center"
 };
 
@@ -39,16 +37,16 @@ const score = {
     fontSize: "64px"
 }
 
-const footerStyle = {
-    position: "fixed",
-    bottom: "0px",
-    backgroundColor: "grey",
-    height: "80px",
-    width: "100%",
-    marginTop: "0px",
-    borderTopStyle: "solid",
-    borderTopColor: "orange"
-}
+// const footerStyle = {
+//     position: "fixed",
+//     bottom: "0px",
+//     backgroundColor: "grey",
+//     height: "80px",
+//     width: "100%",
+//     marginTop: "0px",
+//     borderTopStyle: "solid",
+//     borderTopColor: "orange"
+// }
 // const diff = {
 //     fontFamily: 'Contrail One',
 //     fontSize: '32px',
@@ -63,7 +61,7 @@ const footerStyle = {
 
     const ResultsPage = (props) => (
             <div className="start" style={style}>
-                <div className="button">
+                <div>
                     <div className="instructions" style={headline}>
                         End of Game!
                 <ul style={inst}>
@@ -75,9 +73,6 @@ const footerStyle = {
                     </div>
                 </div>
                 <Link className="waves-effect waves-light btn-large" to="/" style={button}>Play Again!</Link>
-                <div>
-                    <Footer style={footerStyle}></Footer>
-                </div>
             </div>
         );
 //     }

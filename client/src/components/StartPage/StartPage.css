@@ -1,0 +1,188 @@
+.catList {
+    margin: 0% 42.5%;
+    /* display: hidden; */
+    width: 15%;
+    max-height: 50vh;
+    overflow-y: auto;
+    background: black;
+    color: orange;
+    font-size: 24px;
+    font-family: 'Contrail One';
+    z-index: 1;
+    position: absolute;
+}
+
+.wrapper  {
+    background-color: blue;
+    text-align: center;
+    height: auto;
+    min-height: 75vh;
+    /* max-height: 75vh; */
+    /* z-index: 0; */
+}
+#buttonOne {
+    margin-top: 5%;
+}
+.startButton  {
+    font-family: 'Contrail One';
+    font-size: 24px;
+    color: orange;
+    background-color: black;
+    height: auto;
+    width: 15%;
+    padding: 0 1%;
+    z-index: 0;
+}
+
+.caret {
+    color: orange;
+}
+
+.button {
+    font-family: 'Contrail One';
+    font-size: 1.25em;
+    color: orange;
+    background-color: black;
+    height: auto;
+    width: auto;
+    padding: 1%;
+    text-align: center;
+    line-height: 1.25em;
+}
+
+.button:hover,
+.startButton:hover,
+.btn-large:hover,
+.btn-large:focus,
+.btn:focus,
+.diff:focus,
+.dropdown-content li:hover,
+.catList li:hover,
+.catList li:focus {
+    color: black;
+    background-color: orange;
+}
+.dropdown-button {
+    font-size: 1.5em;
+    width: 15%;
+}
+
+.dropdown-content li {
+    color: orange;
+    text-align: center;
+    padding: 10%;
+    font-size: 1.5em;
+}
+
+.input-field,
+.active,
+.dropdown-button {
+    color: orange;
+    background-color: black;
+    font-family: 'Contrail One';
+}
+
+.modal  {
+    text-align: center;
+    color: orange;
+    background-color: black;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: 'Contrail One';
+    text-shadow: 1px 1px blue;
+    border: 1px solid orange;
+    box-shadow: 1px 1px blue;
+    padding: 2%;
+}
+.modal .modal-footer {
+    background: black;
+}
+.modal .modal-header,
+.modal h4 {
+    color: orange;
+    text-shadow: 1px 1px blue;
+}
+.modal input {
+    border-bottom: 1px solid orange;
+    color: orange;
+    text-shadow: 1px 1px blue;
+}
+.modal button {
+    background: blue;
+    color: orange;
+    text-shadow: 1px 1px black;
+    box-shadow: 1px 1px orange;
+}
+.modal button:hover,
+.modal button:focus {
+    background: orange;
+    color: blue;
+    text-shadow: 1px solid black;
+    box-shadow: 10px 10px blue;
+}
+.font  {
+    text-align: center;
+    color: blue;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: 'Contrail One';
+    text-shadow: 1px 1px orange;
+    height: 55%
+}
+.inst  {
+    text-align: center;
+    font-family: 'Contrail One';
+    font-size: 24px;
+    color: orange;
+    padding-top: 1%
+}
+.inst-body {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.headline  {
+    font-size: 42px;
+    color: orange;
+    text-align: center;
+    font-family: 'Contrail One';
+    padding-top: 1%
+}
+.diff  {
+    font-family: 'Contrail One';
+    font-size: 32px;
+    color: orange;
+    background-color: black;
+    height: 50px;
+    width: 15%;
+    text-align: center;
+    margin-bottom: 1.75em;
+}
+
+
+@media screen and (max-width: 1200px) {
+    /* .wrapper {
+        height: 100vh;
+    } */
+    .modal {
+        padding: 1%;
+    }
+    .inst {
+        font-size: 16px;
+        margin: 0 5% 5% 5%;
+    }
+    .button,
+    .diff,
+    .startButton {
+        width: 60%;
+        height: auto;
+        font-size: 2em;
+    }
+    .catList {
+        margin: 0 20%;
+        width: 60%;
+        height: auto;
+        font-size: 2em;
+    }
+}

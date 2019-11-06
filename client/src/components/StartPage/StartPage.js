@@ -1,68 +1,8 @@
 import React, { Component } from "react"
-import { Modal, Footer, Row, Input } from "react-materialize"
+import { Modal, Row, Dropdown } from "react-materialize"
 import { Link } from 'react-router-dom'
-import { auth } from "../../firebase"
-
-
-const style = {
-    backgroundColor: "blue",
-    height: "700px",
-    marginTop: "-30px"
-};
-const button = {
-    fontFamily: 'Contrail One',
-    fontSize: '32px',
-    color: 'orange',
-    backgroundColor: 'black',
-    marginLeft: '42.5%',
-    height: '50px',
-    width: '225px',
-    padding: '0 40px',
-};
-const footerStyle = {
-    position: "fixed",
-    bottom: "0px",
-    backgroundColor: "grey",
-    height: "80px",
-    width: "100%",
-    marginTop: "0px",
-    borderTopStyle: "solid",
-    borderTopColor: "orange"
-}
-const font = {
-    textAlign: "center",
-    color: "blue",
-    fontWeight: "bold",
-    fontSize: "24px",
-    fontFamily: 'Contrail One',
-    textShadow: "1px 1px orange",
-    height: "500px"
-};
-const inst = {
-    textAlign: "center",
-    fontFamily: "Contrail One",
-    fontSize: "30px",
-    color: "orange",
-    paddingTop: "30px"
-};
-const headline = {
-    fontSize: "42px",
-    color: "orange",
-    textAlign: "center",
-    fontFamily: 'Contrail One',
-    paddingTop: '50px'
-};
-const diff = {
-    fontFamily: 'Contrail One',
-    fontSize: '32px',
-    color: 'orange',
-    backgroundColor: 'black',
-    marginLeft: '42.5%',
-    height: '50px',
-    width: '225px',
-    marginBottom: '20px',
-    textAlign: 'center'
-};
+import { auth, firebase } from "../../firebase"
+import './StartPage.css'
 
 class StartPage extends Component {
 
@@ -70,9 +10,14 @@ class StartPage extends Component {
         username: "",
         email: "",
         password: "",
+        passwordVerify: "",
         error: null,
         difficulty: 'easy',
-        category: ''
+        catTitle: 'Random',
+        category: '',
+        user: '',
+        catClick: false,
+        diffClick: false
     }
 
     handleInputChange = event => {
@@ -82,22 +27,33 @@ class StartPage extends Component {
         });
     }
 
+
     handleCreateUser = event => {
         event.preventDefault();
-        auth.doCreateUserWithEmailAndPassword(this.state.username, this.state.email, this.state.password)
-            .then(() => this.setState({ username: "", email: "", password: "", error: null, loggedIn: true }))
+        auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => this.setState({ username: this.state.username, email: this.state.email, password: "", error: null, loggedIn: true }))
             .catch(error => {
                 this.setState({ error })
-            });
+            })
+            .then(() => {
+                let user = firebase.auth.currentUser;
+                if (user) {
+                    user.updateProfile({ displayName: this.state.username })
+                        .then(() => { user.sendEmailVerification() })
+                        .catch(error => {
+                            this.setState({ error })
+                        })
+                }
+            })
     }
 
     handleUserLogin = event => {
         event.preventDefault();
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.setState({ email: "", password: "", error: null, loggedIn: true }))
+            .then(() => this.setState({ username: "", email: "", password: "", error: null, loggedIn: true }))
             .catch(error => {
                 this.setState({ error })
-            });
+            })
     }
 
     handleUserLogout = event => {
@@ -106,9 +62,10 @@ class StartPage extends Component {
     }
 
     handleChange = value => {
-        this.setState({ difficulty: value })
-        // console.log(this.state.difficulty.currentTarget.options.selectedIndex)
-        let selection = this.state.difficulty.currentTarget.options.selectedIndex;
+        this.setState({ diffClick: false })
+        this.setState({ catClick: false })
+        console.log(value.currentTarget.value)
+        let selection = value.currentTarget.value;
         if (selection === 0) {
             this.setState({ difficulty: 'easy' })
             // console.log(this.state.difficulty)
@@ -123,88 +80,142 @@ class StartPage extends Component {
 
     categoryList = (value) => {
         // Code for dynamic category list
-        // console.log(value.currentTarget.selectedOptions[0].value)
-        this.setState({ category: value.currentTarget.selectedOptions[0].value })
+        console.log(value.currentTarget.id)
+        this.setState({ category: value.currentTarget.value, catTitle: value.currentTarget.id, catClick: false })
         // console.log(this.state.category)
     }
 
+    listClick = () => {
+        this.setState({ catClick: true })
+        this.setState({ diffClick: false })
+    }
+
+    diffListClick = () => {
+        this.setState({ catClick: false })
+        this.setState({ diffClick: true })
+    }
+
+
     render() {
         return (
-            <div className="start" style={style}>
-                <div className="button">
-                    <p className="instructions" style={headline}>
-                        Instructions:</p>
-                    <ul style={inst}>
-                        <li>Login to or create your account below.</li>
-                        {/* <li>Invite friends to play with you!</li> */}
-                        <li>You will be shown ten questions and get ten seconds to answer each one.</li>
-                        <li>Choose your desired category and difficulty in the dropdown.</li>
-                        <li>Click "Start Game" when you're ready to begin!</li>
-                    </ul>
-                    {this.props.user === null ? "" :<Row style={diff}>
-                        <Input onChange={this.categoryList} category={this.state.category} s={12} type='select'>
-                            <option style={diff} value=''>Random</option>
-                            <option style={diff} value='9'>General Knowledge</option>
-                            <option style={diff} value='10'>Books</option>
-                            <option style={diff} value='11'>Film</option>
-                            <option style={diff} value='12'>Music</option>
-                            {/* <option style={diff} value='13'>Musicals and Theatres</option> */}
-                            <option style={diff} value='14'>Television</option>
-                            <option style={diff} value='15'>Video Games</option>
-                            <option style={diff} value='16'>Board Games</option>
-                            <option style={diff} value='17'>Science and Nature</option>
-                            <option style={diff} value='18'>Computers</option>
-                            {/* <option style={diff} value='19'>Mathematics</option> */}
-                            <option style={diff} value='20'>Mythology</option>
-                            <option style={diff} value='21'>Sports</option>
-                            <option style={diff} value='22'>Geography</option>
-                            <option style={diff} value='23'>History</option>
-                            {/* <option style={diff} value='24'>Politics</option> */}
-                            {/* <option style={diff} value='25'>Art</option> */}
-                            <option style={diff} value='26'>Celebrities</option>
-                            {/* <option style={diff} value='27'>Animals</option> */}
-                            <option style={diff} value='28'>Vehicles</option>
-                            {/* <option style={diff} value='29'>Comics</option> */}
-                            {/* <option style={diff} value='30'>Gadgets</option> */}
-                            <option style={diff} value='31'>Japanese Anime and Manga</option>
-                            <option style={diff} value='32'>Cartoons and Animations</option>
-                        </Input>
-                    </Row>}
-                    {this.props.user === null ? "" :<Row style={diff}>
-                        <Input onChange={this.handleChange} s={12} type='select'>
-                            <option style={diff} value='easy'>Easy</option>
-                            <option style={diff} value='medium'>Medium</option>
-                            <option style={diff} value='hard'>Hard</option>
-                        </Input>
-                    </Row>}
-                    {this.props.user === null ? "" : <a className="waves-effect waves-light btn-large" href="" onClick={this.handleUserLogout} style={button}>Log out</a>}
+            <div className="wrapper" >
+                {this.props.user === null ? "" : <div className='inst'><p>Gamer:</p><h3>{this.props.user}</h3></div>}
+                <div>
                     <Modal
-                        style={font}
-                        header={this.props.user === null ? 'Please login or create a profile:' : `Welcome ${this.props.user}`}
-                        trigger={this.props.user === null ? <a className="waves-effect waves-light btn-large" href="" style={button}>Log in</a> : ""}>
+                        className="modal"
+                        header={"Instructions"}
+                        trigger={<a id='buttonOne' className="startButton waves-effect waves-light btn-large" href="" >Instructions</a>}>
+                        <div className="modal-content">
+                            <div className="modal-body">
+                                <ul className="inst-body">
+                                    <li>Login or create your account on the homepage</li><br />
+                                    {/* <li>Invite friends to play with you!</li> */}
+                                    <li>You will be shown ten questions and get ten seconds to answer each one.</li><br />
+                                    <li>Choose your desired category and difficulty in the dropdown.</li><br />
+                                    <li>Click "Start Game" when you're ready to begin!</li>
+                                </ul>
+                            </div>
+                            {this.state.error && <p>{this.state.error.message}</p>}
+                        </div>
+                    </Modal><br />
+                    <Row >
+                        {/* <Dropdown trigger={<button className='startButton waves-effect waves-light btn-large'>{this.state.catTitle}</button>} onChange={this.categoryList} category={this.state.category} s={12}> */}
+                        {this.state.catClick === false ?
+                            <button onClick={this.listClick} className="startButton waves-effect waves-light btn-large" href="">{this.state.catTitle}</button>
+                            :
+                            <div className='catList'>
+                                <ul>
+                                    <li onClick={this.categoryList} value='0' id="Random">Random</li>
+                                    <li onClick={this.categoryList} value='9' id="General Knowledge">General Knowledge</li>
+                                    <li onClick={this.categoryList} value='10' id="Books">Books</li>
+                                    <li onClick={this.categoryList} value='11' id="Film">Film</li>
+                                    <li onClick={this.categoryList} value='12' id="Music">Music</li>
+                                    {/* <li  value='13'>Musicals and Theatres</li>  */}
+                                    <li onClick={this.categoryList} value='14' id="Television">Television</li>
+                                    <li onClick={this.categoryList} value='15' id="Video Games">Video Games</li>
+                                    <li onClick={this.categoryList} value='16' id="Board Games">Board Games</li>
+                                    <li onClick={this.categoryList} value='17' id="Science and Nature">Science and Nature</li>
+                                    <li onClick={this.categoryList} value='18' id="Computers">Computers</li>
+                                    {/* <li  value='19'>Mathematics</li>  */}
+                                    <li onClick={this.categoryList} value='20' id="Mythology">Mythology</li>
+                                    <li onClick={this.categoryList} value='21' id="Sports">Sports</li>
+                                    <li onClick={this.categoryList} value='22' id="Geography">Geography</li>
+                                    <li onClick={this.categoryList} value='23' id="History">History</li>
+                                    {/* <li  value='24'>Politics</li>  */}
+                                    {/* <li  value='25'>Art</li>  */}
+                                    <li onClick={this.categoryList} value='26' id="Celebrities">Celebrities</li>
+                                    {/* <li  value='27'>Animals</li>  */}
+                                    <li onClick={this.categoryList} value='28' id="Vehicles">Vehicles</li>
+                                    {/* <li  value='29'>Comics</li>  */}
+                                    {/* <li  value='30'>Gadgets</li>  */}
+                                    <li onClick={this.categoryList} value='31' id="Japanese Anime and Manga">Japanese Anime and Manga</li>
+                                    <li onClick={this.categoryList} value='32' id="Cartoons and Animations">Cartoons and Animations</li>
+                                </ul>
+                            </div>
+                        }
+                        {/* </Dropdown> */}
+                    </Row>
+                    <Row>
+                        {this.state.diffClick === false ?
+                            <button onClick={this.diffListClick} className="startButton waves-effect waves-light btn-large">{this.state.difficulty}</button>
+                            :
+                            <div className='catList'>
+                                <ul>
+                                    <li onClick={this.handleChange} id='easy'>Easy</li>
+                                    <li onClick={this.handleChange} value='1'>Medium</li>
+                                    <li onClick={this.handleChange} value='2'>Hard</li>
+                                </ul>
+                            </div>
+                        }
+                    </Row>
+                    {this.props.user === null ? "" : <a className="startButton waves-effect waves-light btn-large" href="" onClick={this.handleUserLogout} >Log out</a>}
+                    <Modal
+                        className="font"
+                        header={this.props.user === null ? 'Please create a profile below' : `Welcome ${this.props.email}`}
+                        trigger={this.props.user === null ? <a className="startButton waves-effect waves-light btn-large" href="" >Create User</a> : ""}>
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h6 className="modal-title">Log In</h6>
                             </div>
                             <div className="modal-body">
                                 <form>
-                                    <input id="txtEmail" type="email" name="email" value={this.state.email} onChange={this.handleInputChange} placeholder="Email" />
-                                    <input id="txtPassword" type="password" name="password" value={this.state.password} onChange={this.handleInputChange} placeholder="Password" />
+                                    <input type="text" name="username" value={this.state.username} onChange={this.handleInputChange} placeholder="User Name" />
+                                    <input id="txtEmail1" type="email" name="email" value={this.state.email} onChange={this.handleInputChange} autoComplete="username" placeholder="Email Address"/>
+                                    <input id="txtPassword1" type="password" name="password" value={this.state.password} onChange={this.handleInputChange} autoComplete="current-password" placeholder="Password" />
+                                    {/* <input id="txtPasswordVerify" type="password" name="passwordVerify" value={this.state.passwordVerify} onChange={this.handleInputChange} placeholder="Confirm Password" /> */}
                                 </form>
                             </div>
 
                             <div className="modal-footer">
-                                {this.props.user === null ? [<button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary col s2 m2" style={diff}>Sign up</button>, <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action col s10 m10" style={button}>Log in</button>]
-                                    // <button id="btnSignUp" onClick={this.handleCreateUser} className="btn btn-secondary">Sign up</button>
-                                    : <button id="btnLogout" onClick={this.handleUserLogout} className="btn btn-action" style={button}>Log out</button>}
+                                {this.props.user === null ? <button id="btnLogin" onClick={this.handleCreateUser} className="btn btn-action col s10 m10" >Create User</button> :
+                                    <button id="btnLogout" onClick={this.handleUserLogout} className="btn btn-action" >Log out</button>}
                             </div>
                             {this.state.error && <p>{this.state.error.message}</p>}
                         </div>
                     </Modal><br />
-                </div>
-                {this.props.user === null ? "" : <Link className="waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty, user: this.state.trueUser, category: this.state.category } }} style={button}>Start Game</Link>}
-                <div>
-                    <Footer style={footerStyle}></Footer>
+                    <Modal
+                        className="font"
+                        header={this.props.user === null ? 'Please login below' : `Welcome ${this.props.user}`}
+                        trigger={this.props.user === null ? <a className="startButton waves-effect waves-light btn-large" href="" >Log in</a> : ""}>
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h6 className="modal-title">Log In</h6>
+                            </div>
+                            <div className="modal-body">
+                                <form>
+                                    <input id="txtEmail" type="email" name="email" value={this.state.email} onChange={this.handleInputChange} autoComplete="username" placeholder="User Name"/>
+                                    <input id="txtPassword" type="password" name="password" value={this.state.password} onChange={this.handleInputChange} autoComplete="current-password" placeholder="Password"/>
+                                </form>
+                            </div>
+
+                            <div className="modal-footer">
+                                {this.props.user === null ? <button id="btnLogin" onClick={this.handleUserLogin} className="btn btn-action col s10 m10" >Log in</button>
+                                    : <button id="btnLogout" onClick={this.handleUserLogout} className="btn btn-action" >Log out</button>}
+                            </div>
+                            {this.state.error && <p>{this.state.error.message}</p>}
+                        </div>
+                    </Modal><br />
+                    <Link className="startButton waves-effect waves-light btn-large" to={{ pathname: '/game', state: { difficulty: this.state.difficulty, user: this.state.trueUser, category: this.state.category } }} >Start Game</Link>
                 </div>
             </div>
         );
